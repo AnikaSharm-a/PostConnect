@@ -1,3 +1,11 @@
+<style>
+    button {
+        box-sizing: border-box;
+        padding: 10px;
+        cursor: pointer;
+    }
+</style>
+
 <header>
     <div><a href="index.php">Home</a></div>
     <div><a href="profile.php">Profile</a></div>
