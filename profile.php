@@ -2,8 +2,22 @@
     require "functions.php";
 
     check_login();
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["action"]) && $_POST["action"] == "delete") { // Profile Delete
+        
+        $id = $_SESSION["info"]["id"];
+        $query = "DELETE from users where id = '$id' limit 1";
+        $result = mysqli_query($con, $query);
+        
+        if(file_exists($_SESSION["info"]["image"])) {
+            unlink($_SESSION["info"]["image"]);
+        }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["username"])) { // Profile Edit
+        header("Location: logout.php");
+        die;
+    }
+
+    elseif ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["username"])) { // Profile Edit
 
         $image_added = false;
 
@@ -64,7 +78,28 @@
         
         <div style="margin:auto; max-width:600px;">
 
-            <?php if(!empty($_GET["action"]) && $_GET["action"] == "edit"):?>
+            <?php if(!empty($_GET["action"]) && $_GET["action"] == "delete"):?>
+                
+                <h2 style="text-align: center;">Are you sure you want to delete your profile?</h2>
+                
+                <div style="text-align: center; margin: auto; max-width: 600px">
+
+                    <form method="post" enctype="multipart/form-data" style="margin:auto; padding:10px">
+                        
+                        <img src="<?php echo $_SESSION["info"]["image"] ?>" style="width: 100px; height: 100px; object-fit: cover; margin: auto; display: block;"><br>                    
+                        <div> <?php echo $_SESSION["info"]["username"] ?> </div> <br>
+                        <div> <?php echo $_SESSION["info"]["email"] ?> </div> <br>
+                        <input type="hidden" name="action" value="delete">
+
+                        <button>Delete</button>
+                        <a href = "profile.php">
+                            <button type="button">Cancel</button>
+                        </a>
+                    </form> 
+                
+                </div>
+
+            <?php elseif(!empty($_GET["action"]) && $_GET["action"] == "edit"):?>
                 
                 <h2 style="text-align: center;">Edit Profile</h2>
 
@@ -103,6 +138,10 @@
 
                     <a href="profile.php?action=edit">
                         <button>Edit Profile</button>
+                    </a>
+
+                    <a href="profile.php?action=delete">
+                        <button>Delete Profile</button>
                     </a>
 
                 </div>
