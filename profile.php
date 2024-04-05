@@ -36,9 +36,13 @@
                     <td><?php echo $_SESSION['info']['email']?></td>
                 </div>
 
+                <a href="profile.php?action=edit">
+                    <button>Edit Profile</button>
+                </a>
+
             </div>
             <br>
-            
+
             <hr>
 
             <h5> Create a post </h5>

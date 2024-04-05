@@ -9,7 +9,7 @@ a {
 }
 
 body {
-    background-color: #f7f7eb;
+    background-color: #64645c;
     font-family: tahoma;
 }
 
@@ -49,4 +49,5 @@ textarea {
 
 button {
     padding: 10px;
+    cursor: pointer;
 }
